@@ -1,0 +1,55 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.sebastianContreras.Curriculumbackend.Controller;
+
+import com.sebastianContreras.Curriculumbackend.Model.Skill;
+import com.sebastianContreras.Curriculumbackend.Services.ISkillService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ *
+ * @author root
+ */
+@RestController
+@CrossOrigin(origins = "*", methods={RequestMethod.GET,RequestMethod.DELETE,RequestMethod.POST,RequestMethod.PUT})
+public class skillsController {
+    @Autowired
+    private ISkillService interSkills;
+    @GetMapping("/skills/{id}")
+    public List<Skill> getSkill(@PathVariable int id){
+        List<Skill> skillUsuario = interSkills.getSkills(id);
+                return skillUsuario;
+    }
+    @PostMapping("/skills")
+    public String saveSkill(@RequestBody Skill newSkill){
+        interSkills.saveSkill(newSkill);
+        return "Usuario creado correctamente";
+    }
+    @DeleteMapping("/skills/{id}")
+    public String deleteSkill(@PathVariable int id){
+        interSkills.deleteSkill(id);
+        return "Skill Eliminada correctamente";
+    }
+    @PutMapping("/skills/{id}")
+    public String editSkill(@PathVariable int id){
+        Skill encontrada = interSkills.getSkill(id);
+        if(encontrada != null){
+            interSkills.saveSkill(encontrada);
+            return "Skill Modificada Correctamente";
+        }
+        return "No se encontro skill";
+    }
+    
+}
