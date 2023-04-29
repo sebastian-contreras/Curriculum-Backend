@@ -9,6 +9,13 @@ import com.sebastianContreras.Curriculumbackend.Repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,6 +24,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService implements IUserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -29,9 +37,14 @@ public class UserService implements IUserService {
     @Override
     public User getUser(int id) {
         User usuario = userRepository.findById(id).orElse(null);
-                return usuario;
+        return usuario;
     }
-    
+
+    public User loadUserbyEmail(String email) {
+        User usuario = userRepository.findByEmail(email).orElse(null);
+        return usuario;
+    }
+
     @Override
     public User findUser(long id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -42,4 +55,22 @@ public class UserService implements IUserService {
         userRepository.save(newUsuario);
     }
 
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return username -> userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
+    @Bean
+    private PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
