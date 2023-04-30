@@ -4,6 +4,7 @@
  */
 package com.sebastianContreras.Curriculumbackend.config;
 
+import com.sebastianContreras.Curriculumbackend.Model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Service;
  * @author root
  */
 @Service
-class JwtService {
+public class JwtService {
 
     private static final String SECRET_KEY = "645267556B58703273357638792F423F4528482B4D6251655468566D59713374";
 
@@ -34,23 +35,23 @@ class JwtService {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
-    
+
     //otra forma simple
-  //  public String generateToken(UserDetails userDetails){
-   //     return generateToken(new HashMap<>(),userDetails);
-  //  }
-    
+    public String generateToken(UserDetails userDetails) {
+        return generateToken(new HashMap<>(), userDetails);
+    }
+
     public String generateToken(
-            Map<String,Object> extraClaims,
+            Map<String, Object> extraClaims,
             UserDetails userDetails
-    ){
+    ) {
         return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+1000*60*24))
-                .signWith(getSignInKey(),SignatureAlgorithm.HS256)
+                .setExpiration(new Date(System.currentTimeMillis() + 10000 * 60 * 24))
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
-    
+
     private Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
@@ -61,11 +62,11 @@ class JwtService {
 
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails){
+    public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
-        
+
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
@@ -76,6 +77,14 @@ class JwtService {
     }
 
     private Date extractExpiration(String token) {
-        return extractClaims(token,Claims::getExpiration);
+        return extractClaims(token, Claims::getExpiration);
     }
+    
+    
+    public Boolean validateToken(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+    
+    
 }

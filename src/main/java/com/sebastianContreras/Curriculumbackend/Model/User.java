@@ -1,12 +1,14 @@
 
 package com.sebastianContreras.Curriculumbackend.Model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.util.Collection;
 import java.util.List;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,11 +21,15 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 @Getter  @Setter
 @Entity
+@Builder
 public class User implements UserDetails{
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    
     private String fullname;
+    @Column(unique = true)
     private String email;
     private String password;
     private String aboutMe;
@@ -35,8 +41,7 @@ public class User implements UserDetails{
     }
 
     
-    public User(int id, String fullname, String email, String password) {
-        this.id = id;
+    public User(String fullname, String email, String password) {
         this.fullname = fullname;
         this.email = email;
         this.password = password;
