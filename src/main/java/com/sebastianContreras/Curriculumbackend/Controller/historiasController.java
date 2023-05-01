@@ -41,6 +41,7 @@ public class historiasController {
     
     @PostMapping("historias")
     public String newHistoria(@RequestBody Historia newHistorias){
+        
         interHistorias.saveHistoria(newHistorias);
         return "Historia Creada";
     }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.sebastianContreras.Curriculumbackend.config;
 
 import com.sebastianContreras.Curriculumbackend.Repository.UserRepository;
@@ -17,22 +13,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-/**
- *
- * @author root
- */
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
-    
-    private UserRepository repository;
+
+  private final UserRepository repository;
 
   @Bean
   public UserDetailsService userDetailsService() {
     return username -> repository.findByEmail(username)
         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
   }
-
 
   @Bean
   public AuthenticationProvider authenticationProvider() {
@@ -51,4 +42,5 @@ public class ApplicationConfig {
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
+
 }
