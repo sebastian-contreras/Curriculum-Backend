@@ -31,9 +31,7 @@ public class JwtService {
     public String extractUsername(String token) {
         return extractClaims(token, Claims::getSubject);
     }
-    public Integer extractId(String token) {
-        return (Integer) extractAllClaims(token).get("idUsuario");
-    }
+
     public <T> T extractClaims(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -48,16 +46,16 @@ public class JwtService {
             Map<String, Object> extraClaims,
             User userDetails
     ) {
+        extraClaims.put("idUsuario", userDetails.getId());
+        extraClaims.put("fullname", userDetails.getFullname());
         return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 10000 * 60 * 24))
-                .claim("idUsuario",userDetails.getId())
-                .claim("fullname",userDetails.getFullname())
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
@@ -84,12 +82,10 @@ public class JwtService {
     private Date extractExpiration(String token) {
         return extractClaims(token, Claims::getExpiration);
     }
-    
-    
+
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
-    
-    
+
 }
