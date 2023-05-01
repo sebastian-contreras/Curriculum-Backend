@@ -59,7 +59,13 @@ public class User implements UserDetails{
         this.image = image;
         this.portraitImage = portraitImage;
     }
-
+    public User(int id, String aboutMe, String shortEducation, String image, String portraitImage) {
+        this.id = id;
+        this.aboutMe = aboutMe;
+        this.shortEducation = shortEducation;
+        this.image = image;
+        this.portraitImage = portraitImage;
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("User"));

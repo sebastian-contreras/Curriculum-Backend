@@ -30,8 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
 public class usuariosController {
-
-    String origen = "";
     @Autowired
     private JwtService jwtService;
 
@@ -74,7 +72,10 @@ public class usuariosController {
         if (idToken != userFound.getId()) {
             return "No puede realizar esta accion";
         }
+        System.out.println(editUsuario);
         if (userFound != null) {
+            userFound.setPortraitImage(editUsuario.getPortraitImage());
+            userFound.setShortEducation(editUsuario.getShortEducation());
             userFound.setAboutMe(editUsuario.getAboutMe());
             userService.saveUser(userFound);
             return "Edicion Correcta";
