@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author root
  */
 @RestController
+@CrossOrigin(origins = "*", methods={RequestMethod.GET,RequestMethod.DELETE,RequestMethod.POST,RequestMethod.PUT})
+
 public class skillsController {
 
     @Autowired

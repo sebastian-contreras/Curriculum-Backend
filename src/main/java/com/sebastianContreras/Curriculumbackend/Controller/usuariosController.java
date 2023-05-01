@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author root
  */
 @RestController
+
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
 public class usuariosController {
 
@@ -47,19 +48,19 @@ public class usuariosController {
         return userService.getUser(id);
     }
 
-    @PostMapping("/users")
-    public String createUser(@NonNull HttpServletRequest request, @RequestBody User newUsuario) {
-        final String authHeader = request.getHeader("Authorization");
-        final String jwt;
-        jwt = authHeader.substring(7);
-        Integer idToken;
-        idToken = (Integer) jwtService.extractAllClaims(jwt).get("idUsuario");
-        if (idToken != newUsuario.getId()) {
-            return "No puede realizar esta accion";
-        }
-        userService.saveUser(newUsuario);
-        return "Usuario Creado";
-    }
+//    @PostMapping("/users")
+//    public String createUser(@NonNull HttpServletRequest request, @RequestBody User newUsuario) {
+//        final String authHeader = request.getHeader("Authorization");
+//        final String jwt;
+//        jwt = authHeader.substring(7);
+//        Integer idToken;
+//        idToken = (Integer) jwtService.extractAllClaims(jwt).get("idUsuario");
+//        if (idToken != newUsuario.getId()) {
+//            return "No puede realizar esta accion";
+//        }
+//        userService.saveUser(newUsuario);
+//        return "Usuario Creado";
+//    }
 
     @PutMapping("/users/{id}")
     public String editUser(@NonNull HttpServletRequest request, @PathVariable int id,

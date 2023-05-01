@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author root
  */
 @RestController
+@CrossOrigin(origins = "*", methods={RequestMethod.GET,RequestMethod.DELETE,RequestMethod.POST,RequestMethod.PUT})
+
 public class historiasController {
 
     @Autowired
@@ -52,11 +54,15 @@ public class historiasController {
         jwt = authHeader.substring(7);
         Integer idToken;
         idToken = (Integer) jwtService.extractAllClaims(jwt).get("idUsuario");
+                System.out.println(idToken);
+                                System.out.println(newHistorias.getIdusuario());
+
+
         if (idToken != newHistorias.getIdusuario()){
            return "No puede realizar esta accion";
         }
         interHistorias.saveHistoria(newHistorias);
-        return "Historia Creada";
+        return newHistorias.toString();
     }
 
     @PutMapping("historias/{id}")
