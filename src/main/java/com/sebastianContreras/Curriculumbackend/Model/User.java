@@ -34,11 +34,6 @@ public class User implements UserDetails{
     @Column(unique = true)
     private String email;
     private String password;
-    private String aboutMe;
-    private String shortEducation;
-    private String image;
-    private String portraitImage;
-    
     public User() {
     }
 
@@ -49,23 +44,14 @@ public class User implements UserDetails{
         this.password = password;
     }
 
-    public User(int id, String fullname, String email, String password, String aboutMe, String shortEducation, String image, String portraitImage) {
+    public User(int id, String fullname, String email, String password) {
         this.id = id;
         this.fullname = fullname;
         this.email = email;
         this.password = password;
-        this.aboutMe = aboutMe;
-        this.shortEducation = shortEducation;
-        this.image = image;
-        this.portraitImage = portraitImage;
+
     }
-    public User(int id, String aboutMe, String shortEducation, String image, String portraitImage) {
-        this.id = id;
-        this.aboutMe = aboutMe;
-        this.shortEducation = shortEducation;
-        this.image = image;
-        this.portraitImage = portraitImage;
-    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("User"));
