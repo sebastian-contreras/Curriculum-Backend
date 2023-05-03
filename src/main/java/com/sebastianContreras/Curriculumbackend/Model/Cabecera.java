@@ -28,6 +28,9 @@ public class Cabecera {
     private String email;
 
     private String portraitImage;
+    private String github;
+    private String instagram;
+    private String linkedin;
 
     public Cabecera() {
     }
@@ -40,6 +43,9 @@ public class Cabecera {
         this.shortEducation = "Educacion Principal";
         this.portraitImage = "https://i.pinimg.com/originals/95/d4/e8/95d4e875591284d16207c238b11906eb.jpg";
         this.image = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+        this.github="https://github.com";
+        this.instagram="https://instagram.com";
+        this.linkedin="https://linkedin.com";
     }
 
     public Cabecera(int idusuario, String aboutMe, String shortEducation, String image, String portraitImage) {
@@ -48,6 +54,19 @@ public class Cabecera {
         this.shortEducation = shortEducation;
         this.image = image;
         this.portraitImage = portraitImage;
+    }
+
+    public Cabecera(int id, String fullname, String aboutMe, String shortEducation, String image, String email, String portraitImage, String github, String instagram, String linkedin) {
+        this.id = id;
+        this.fullname = fullname;
+        this.aboutMe = aboutMe;
+        this.shortEducation = shortEducation;
+        this.image = image;
+        this.email = email;
+        this.portraitImage = portraitImage;
+        this.github = github;
+        this.instagram = instagram;
+        this.linkedin = linkedin;
     }
 
 }

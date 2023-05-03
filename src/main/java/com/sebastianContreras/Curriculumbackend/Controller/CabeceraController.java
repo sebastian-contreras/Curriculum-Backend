@@ -57,6 +57,9 @@ public class CabeceraController {
             cabeza.setPortraitImage(editUsuario.getPortraitImage());
             cabeza.setShortEducation(editUsuario.getShortEducation());
             cabeza.setAboutMe(editUsuario.getAboutMe());
+            cabeza.setGithub(editUsuario.getGithub());
+            cabeza.setInstagram(editUsuario.getInstagram());
+            cabeza.setLinkedin(editUsuario.getLinkedin());
             servicio.saveCabecera(cabeza);
             return "Edicion Correcta";
         }

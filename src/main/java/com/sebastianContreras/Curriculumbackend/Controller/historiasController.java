@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @CrossOrigin(origins = "*", methods={RequestMethod.GET,RequestMethod.DELETE,RequestMethod.POST,RequestMethod.PUT})
-
 public class historiasController {
 
     @Autowired
@@ -61,7 +60,7 @@ public class historiasController {
            return "No puede realizar esta accion";
         }
         interHistorias.saveHistoria(newHistorias);
-        return newHistorias.toString();
+        return "Historias Creada";
     }
 
     @PutMapping("historias/{id}")

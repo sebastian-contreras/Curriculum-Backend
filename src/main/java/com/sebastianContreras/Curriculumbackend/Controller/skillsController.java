@@ -53,7 +53,7 @@ public class skillsController {
             return "No puede realizar esta accion";
         }
         interSkills.saveSkill(newSkill);
-        return "Usuario creado correctamente";
+        return "Skill creado correctamente";
     }
 
     @DeleteMapping("/skills/{id}")
