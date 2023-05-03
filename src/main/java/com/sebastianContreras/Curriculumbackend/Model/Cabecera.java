@@ -41,7 +41,7 @@ public class Cabecera {
         this.email = email;
         this.aboutMe = "¡Hola! Me llamo [nombre] y me describo como una persona [adjetivo] y [adjetivo]. Me considero [otro adjetivo] y [otro adjetivo], siempre estoy buscando nuevas formas de crecer y aprender en mi vida personal y profesional.\n";
         this.shortEducation = "Educacion Principal";
-        this.portraitImage = "https://i.pinimg.com/originals/95/d4/e8/95d4e875591284d16207c238b11906eb.jpg";
+        this.portraitImage = "https://get.wallhere.com/photo/soft-gradient-gradient-solid-color-1537839.jpg";
         this.image = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
         this.github="https://github.com";
         this.instagram="https://instagram.com";

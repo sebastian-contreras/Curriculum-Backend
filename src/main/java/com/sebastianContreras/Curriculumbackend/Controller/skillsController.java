@@ -71,7 +71,7 @@ public class skillsController {
     }
 
     @PutMapping("/skills/{id}")
-    public String editSkill(@NonNull HttpServletRequest request, @PathVariable int id) {
+    public String editSkill(@NonNull HttpServletRequest request, @PathVariable int id, @RequestBody Skill editSkill) {
         Skill encontrada = interSkills.getSkill(id);
          final String authHeader = request.getHeader("Authorization");
         final String jwt;
@@ -82,7 +82,7 @@ public class skillsController {
             return "No puede realizar esta accion";
         }
         if (encontrada != null) {
-            interSkills.saveSkill(encontrada);
+            interSkills.saveSkill(editSkill);
             return "Skill Modificada Correctamente";
         }
         return "No se encontro skill";

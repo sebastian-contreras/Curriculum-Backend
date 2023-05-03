@@ -35,11 +35,6 @@ public class historiasController {
     @Autowired
     private IHistoriaService interHistorias;
 
-    @GetMapping("tests")
-    public String prueva() {
-        return "asdas";
-    }
-
     @GetMapping("/historias/{idusuario}")
     public List<Historia> getHistoriasCon(@PathVariable int idusuario) {
         return interHistorias.getHistorias(idusuario);

@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class Controller {
-        @GetMapping("/hola")
+        @GetMapping("/test")
     public String getPersonas(){
-        return "asdasd";
+        return "Prueba endpoint get";
     }
 }

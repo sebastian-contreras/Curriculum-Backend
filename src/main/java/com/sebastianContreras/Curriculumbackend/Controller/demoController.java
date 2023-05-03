@@ -17,6 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/demo")
 public class demoController {
     @GetMapping ResponseEntity<String> sayHello(){
-        return ResponseEntity.ok("hola desde punto seguro");
+        return ResponseEntity.ok("Prueba Implementacion JWT");
     }
 }
